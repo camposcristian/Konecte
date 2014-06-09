@@ -1,0 +1,13 @@
+<ion-view title="Cursos" hide-back-button="true">
+    <label class="item item-input">
+        <i class="icon ion-search placeholder-icon"></i>
+        <input type="search" ng-model="searchText" placeholder="Buscar alumnos por Cédula, Nombre, Apellido">
+    </label>
+    <ion-content class="has-header">
+        <ion-list>
+            <ion-item ng-repeat="student in students | filter:searchText" type="item-text-wrap" href="#/director/alumno1/{{student.id}}">
+                {{student.nombre}} {{student.apellido}}
+            </ion-item>
+        </ion-list>
+    </ion-content>
+</ion-view>

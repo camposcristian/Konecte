@@ -1,0 +1,26 @@
+<?xml version='1.0' encoding='utf-8'?>
+<widget id="com.ionicframework.starter" version="0.0.1" xmlns:gap="http://phonegap.com/ns/1.0"
+ xmlns:cdv="http://cordova.apache.org/ns/1.0">
+  <name>Konecte</name>
+  <description>
+    Gestión Curricular de entidades educativas
+  </description>
+  <author email="hi@ionicframework" href="http://ionicframework.com/">
+    Lupersoft
+  </author>
+  <content src="index.html" />
+  <preference name="fullscreen" value="true" />
+  <preference name="webviewbounce" value="true" />
+  <preference name="UIWebViewBounce" value="true" />
+  <preference name="DisallowOverscroll" value="true" />
+  <icon src="icon.png" />
+  <icon src="ldpi.png" gap:platform="android" gap:qualifier="ldpi" />
+  <icon src="mdpi.png" gap:platform="android" gap:qualifier="mdpi" />
+  <icon src="hdpi.png" gap:platform="android" gap:qualifier="hdpi" />
+  <icon src="xhdpi.png" gap:platform="android" gap:qualifier="xhdpi" />
+  <icon src="xxhdpi.png" gap:platform="android" gap:qualifier="xxhdpi" />
+  <access origin="*" />
+  <feature name="StatusBar">
+    <param name="ios-package" value="CDVStatusBar" onload="true" />
+  </feature>
+</widget>

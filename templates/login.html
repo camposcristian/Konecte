@@ -1,0 +1,45 @@
+﻿<ion-view title="Colegios">
+    <ion-content class="has-header padding">
+        <div class="login-rope" style="margin-top: -200px;">
+        </div>
+        <form novalidate="novalidate" on-valid-submit="submit(user)">
+            <table class="login-top" cellspacing="0" cellpadding="0">
+                <tbody>
+                    <tr>
+                        <td class="corner-left"></td>
+                        <td class="corner-middle"></td>
+                        <td class="corner-right"></td>
+                    </tr>
+                </tbody>
+            </table>
+            <div class="list card login-form">
+                <img class="img-center logo" src="img/logo.png" alt="logo" />
+                <p class="p-login">Buenas tardes. Ingresá tus datos para poder continuar</p>
+                <label class="item item-input validated">
+                    <input type="text" ng-model="user.usuario" required="required" name="user" placeholder="Usuario">
+                    <i class="icon ion-alert-circled error"></i>
+                </label>
+                <label class="item item-input validated">
+                    <input type="password" ng-model="user.password" required="required" name="password" placeholder="Contraseña">
+                    <i class="icon ion-alert-circled error"></i>
+                </label>
+                <button type="submit" class="button icon-right ion-chevron-right button-block button-positive ">Ingresar </button>
+                <table cellspacing="0" style="margin-left: 30px;" cellpadding="0">
+                    <tbody>
+                        <tr>
+                            <td class="image">
+                                <img src="img/key.png">
+                            </td>
+                            <td class="warning-text">
+                                ¿Olvidaste tu contraseña? Hacé click <br>
+                                aqui y te la enviamos por email.
+                            </td>
+                        </tr>
+                        <tr></tr>
+                    </tbody>
+                </table>
+                <img class="img-center" src="img/logo-konecte.png" alt="logo" />
+            </div>
+        </form>
+    </ion-content>
+</ion-view>
