@@ -69,12 +69,12 @@ angular.module('konecte.controllers', [])
     });
 })
 
-.controller('StudentDetailCtrl', function ($scope, $stateParams, Students) {
+.controller('StudentDetailCtrl', function ($scope, $stateParams, Students, Inasistances) {
     Students.get($stateParams.studentId).success(function (student) {
         $scope.student = student.alumno;
     });
-    Inasistances.get($stateParams.studentId).success(function (inasistance) {
-        $scope.inasistances = inasistance.inasistencias;
+    Inasistances.all($stateParams.studentId).success(function (inasistance) {
+        $scope.inasistances = inasistance.inasistencias.rows;
     });
 })
 
