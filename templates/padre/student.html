@@ -42,7 +42,14 @@
         <div class="card">
             <div class="item item-text-wrap">
                 <h2>Indisciplinas y Observaciones</h2>
-                <p>Ninguna</p>
+                <div ng-if="inasistances.length == 0 ">
+                    <p>Ninguna</p>
+                </div>
+                <div ng-if="inasistances.length > 0 ">
+                    <p ng-repeat="inasistance in inasistances">
+                        {{inasistance.descripcion}}
+                    </p>
+                </div>
             </div>
         </div>
     </ion-content>

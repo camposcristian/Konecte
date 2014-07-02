@@ -23,7 +23,7 @@ angular.module('konecte.controllers', [])
                     $state.transitionTo("profesor.courses");
                     break;
                 case 'Personal':
-                    alert("Funcionalidad no implementada");
+                    alert("El rol de Personal no posee acceso a la aplicación");
                     //$state.transitionTo("personal.courses");
                     break;
                 case 'Director':
@@ -72,6 +72,9 @@ angular.module('konecte.controllers', [])
 .controller('StudentDetailCtrl', function ($scope, $stateParams, Students) {
     Students.get($stateParams.studentId).success(function (student) {
         $scope.student = student.alumno;
+    });
+    Inasistances.get($stateParams.studentId).success(function (inasistance) {
+        $scope.inasistances = inasistance.inasistencias;
     });
 })
 

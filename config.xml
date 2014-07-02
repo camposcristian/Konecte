@@ -9,11 +9,13 @@
     Lupersoft
   </author>
   <content src="index.html" />
-  <preference name="fullscreen" value="true" />
-  <preference name="webviewbounce" value="true" />
-  <preference name="UIWebViewBounce" value="true" />
-  <preference name="DisallowOverscroll" value="true" />
+    <preference name="fullscreen" value="true" />
+    <preference name="webviewbounce" value="false" />
+    <preference name="UIWebViewBounce" value="false" />
+    <preference name="DisallowOverscroll" value="true" />
+        <preference name="BackupWebStorage" value="none" />
   <icon src="icon.png" />
+
   <icon src="ldpi.png" gap:platform="android" gap:qualifier="ldpi" />
   <icon src="mdpi.png" gap:platform="android" gap:qualifier="mdpi" />
   <icon src="hdpi.png" gap:platform="android" gap:qualifier="hdpi" />

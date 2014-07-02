@@ -1,9 +1,5 @@
 angular.module('konecte.services', [])
 
-
-/**
- * A simple example service that returns some data.
- */
 .factory('BaseUrl', function () {
     return 'http://api.konecte.ridelnik.com';
 })
@@ -50,6 +46,43 @@ angular.module('konecte.services', [])
     }
 })
 
+.factory('Inasistances', function (BaseUrl, $http) {
+
+    return {
+        all: function (id) {
+            if (id) {
+                return $http.post(BaseUrl + '/inasistencias/get', { alumno_id: id })
+            }
+            else {
+                return $http.post(BaseUrl + '/inasistencias/get')
+
+            }
+        },
+        get: function (id) {
+            return $http.post(BaseUrl + '/inasistencias/get/' + id)
+        }
+    }
+})
+
+    //No se usa, falta algun metodo que me devuelva una lista de profesores con su nombre direcamente
+.factory('SubjectTeachers', function (BaseUrl, $http) {
+
+    return {
+        all: function (id) {
+            if (id) {
+                return $http.post(BaseUrl + '/cursos_materias_profesores/get', { materia_id: id })
+            }
+            else {
+                return $http.post(BaseUrl + '/cursos_materias_profesores/get')
+
+            }
+        },
+        get: function (id) {
+            return $http.post(BaseUrl + '/cursos_materias_profesores/get/' + id)
+        }
+    }
+})
+
 .factory('Workers', function (BaseUrl, $http) {
 
     return {
@@ -80,8 +113,8 @@ angular.module('konecte.services', [])
 
             }
         },
-        getPend: function () {
-            return $http.post(BaseUrl + '/materias/get/')
+        getPend: function (id) {
+            return $http.post(BaseUrl + '/alumnos/get/'+id+'/materias_pendientes')
         },
         get: function (id) {
             return $http.post(BaseUrl + '/materias/get/'+id)
@@ -91,7 +124,6 @@ angular.module('konecte.services', [])
 
 .factory('AuthService', function (BaseUrl, $http, $q) {
 
-    //var baseurl = 'http://api.konecte.ridelnik.com';
     var guid = localStorage["guid"];
     var token = localStorage["token"];
 
