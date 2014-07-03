@@ -3,29 +3,31 @@
         <div class="card">
             <div class="item item-text-wrap">
                 <h2>Materia</h2>
-                <p>{{subject.tipo_materia}}</p>
+                <p>{{subject.materia}}</p>
             </div>
         </div>
-        <div class="card">
+        <!--Falta que la api retorne una lista de profesores por materia con sus nombres-->
+        <!--<div class="card">
             <div class="item item-text-wrap">
                 <h2>Profesor</h2>
+                <div ng-if="data.type == 'hoot' ">
+                    //differnt template with hoot data
+                </div>
                 <p>No disponible</p>
             </div>
-        </div>
+        </div>-->
 
         <div class="card">
             <div class="item item-text-wrap">
-                <h2>Calendario </h2>
-                <p>No disponible</p>
+                <h2>Curricula </h2>
+                <p>{{subject.curricula}}</p>
                 <!--<a href="#">Descargar</a>-->
             </div>
         </div>
         <div class="card">
             <div class="item item-text-wrap">
                 <h2>Material</h2>
-                <p>No disponible</p>
-                <!--<a href="#">Descargar</a>-->
-
+                <a href="{{subject.programa}}">Descargar</a>
             </div>
         </div>
     </ion-content>

@@ -304,12 +304,22 @@ angular.module('konecte', ['ionic', 'konecte.controllers', 'konecte.services'])
     })
 
     .state('padre.students', {
-        url: '/alumnos',
+        url: '/alumnos/:fatherId',
         authenticate: true,
         views: {
             'menuContent': {
                 templateUrl: 'templates/padre/students.html',
-                controller: 'StudentsCtrl'
+                controller: 'ChildsCtrl'
+            }
+        }
+    })
+    .state('padre.student', {
+        url: '/alumno/:studentId',
+        authenticate: true,
+        views: {
+            'menuContent': {
+                templateUrl: 'templates/padre/child.html',
+                controller: 'ChildDetailCtrl'
             }
         }
     })

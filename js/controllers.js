@@ -17,13 +17,15 @@ angular.module('konecte.controllers', [])
         var promise = AuthService.login(user);
         promise.then(function (result) {
             $scope.loadingIndicator.hide();
+            localStorage.user = result.usuario.perfil_id;
             var tipo = result.usuario.tipo_usuario;
             switch (tipo) {
                 case 'Profesor':
                     $state.transitionTo("profesor.courses");
                     break;
                 case 'Personal':
-                    alert("Funcionalidad no implementada");
+                    //alert("El rol de Personal no posee acceso a la aplicación");
+                    $state.transitionTo("director.courses");
                     //$state.transitionTo("personal.courses");
                     break;
                 case 'Director':
@@ -33,7 +35,7 @@ angular.module('konecte.controllers', [])
                     $state.transitionTo("alumno.subjects");
                     break;
                 case 'Padre':
-                    $state.transitionTo("padre.students");
+                    $state.transitionTo("padre.students", { fatherId: result.usuario.perfil_id });
                     break;
                 default:
 
@@ -55,10 +57,10 @@ angular.module('konecte.controllers', [])
         $scope.course = course[$stateParams.courseId];
     });
 
-    Subjects.all($stateParams.courseId).success(function (list) {
+    Subjects.all({ curso_id: $stateParams.courseId }).success(function (list) {
         $scope.subjects = list.materias.rows;;
     });
-    Students.all($stateParams.courseId).success(function (list) {
+    Students.all({ curso_id: $stateParams.courseId }).success(function (list) {
         $scope.students = list.alumnos.rows;
     });
 })
@@ -69,9 +71,12 @@ angular.module('konecte.controllers', [])
     });
 })
 
-.controller('StudentDetailCtrl', function ($scope, $stateParams, Students) {
+.controller('StudentDetailCtrl', function ($scope, $stateParams, Students, Inasistances) {
     Students.get($stateParams.studentId).success(function (student) {
         $scope.student = student.alumno;
+    });
+    Inasistances.all($stateParams.studentId).success(function (inasistance) {
+        $scope.inasistances = inasistance.inasistencias.rows;
     });
 })
 
@@ -93,26 +98,49 @@ angular.module('konecte.controllers', [])
     });
 })
 
+.controller('ChildsCtrl', function ($scope, Students, $stateParams) {
+    Students.all({ padre_id: $stateParams.fatherId }).success(function (list) {
+        $scope.students = list.alumnos.rows;
+    });
+})
+
 .controller('SubjectsCtrl', function ($scope, Subjects) {
     Subjects.all().success(function (subjects) {
         $scope.subjects = subjects.materias.rows;
     });
 })
 
-.controller('SubjectsPendCtrl', function ($scope, Subjects) {
-    Subjects.getPend().success(function (subjects) {
+.controller('ChildDetailCtrl', function ($scope, Subjects, Students, Inasistances, $stateParams) {
+    $scope.goBack = function () {
+        $state.transitionTo("padre.students", { fatherId: localStorage.user });
+    };
+    Students.get($stateParams.studentId).success(function (student) {
+        $scope.student = student.alumno;
+    });
+    Inasistances.all($stateParams.studentId).success(function (inasistance) {
+        $scope.inasistances = inasistance.inasistencias.rows;
+    });
+    Subjects.all({ almuno_id: $stateParams.studentId }).success(function (subjects) {
         $scope.subjects = subjects.materias.rows;
     });
-})
-
-.controller('WorkersCtrl', function ($scope, Workers) {
-    Workers.all().success(function (workers) {
-        $scope.workers = workers.personales.rows;
+    Subjects.getPend($stateParams.studentId ).success(function (subjects) {
+        $scope.subjectsPend = subjects.materias_pendientes.rows;
     });
 })
+    .controller('SubjectsPendCtrl', function ($scope, Subjects) {
+        Subjects.getPend().success(function (subjects) {
+            $scope.subjects = subjects.materias.rows;
+        });
+    })
 
-.controller('TeachersCtrl', function ($scope, Teachers) {
-    Teachers.all().success(function (teachers) {
-        $scope.workers = teachers.profesores.rows;
-    });
-})
+    .controller('WorkersCtrl', function ($scope, Workers) {
+        Workers.all().success(function (workers) {
+            $scope.workers = workers.personales.rows;
+        });
+    })
+
+    .controller('TeachersCtrl', function ($scope, Teachers) {
+        Teachers.all().success(function (teachers) {
+            $scope.workers = teachers.profesores.rows;
+        });
+    })

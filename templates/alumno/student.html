@@ -3,45 +3,40 @@
         <div class="card">
             <div class="item item-text-wrap">
                 <h2>Nombre Completo</h2>
-                <p>{{student.name}}</p>
+                <p>{{student.nombre}} {{student.apellido}}</p>
             </div>
         </div>
         <div class="card">
             <div class="item item-text-wrap">
                 <h2>Telefono</h2>
-                <p>1531080680</p>
+                <p>{{student.telefono_movil}}</p>
                 <h2>Domicilio</h2>
-                <p>Frias 263 - 8vo 69</p>
+                <p>{{student.domicilio}}</p>
             </div>
         </div>
         <div class="card">
             <div class="item item-text-wrap">
                 <h2>Curso</h2>
-                <p>1er grado</p>
+                <p>No Disponible</p>
             </div>
         </div>
         <div class="card">
             <div class="item item-text-wrap">
                 <h2>Fecha de nacimiento</h2>
-                <p>31-12-2000</p>
+                <p>{{student.fecha_nacimiento}}</p>
             </div>
         </div>
         <div class="card">
             <div class="item item-text-wrap">
-                <h2>Inasistencias</h2>
-                <p>12-03-2014 - Injustificado</p>
-            </div>
-        </div>
-        <div class="card">
-            <div class="item item-text-wrap">
-                <h2>Notas</h2>
-                <a href="#">Primer Parcial</a>
-            </div>
-        </div>
-        <div class="card">
-            <div class="item item-text-wrap">
-                <h2>Indisciplinas</h2>
-                <p>Ninguna</p>
+                <h2>Indisciplinas y Observaciones</h2>
+                <div ng-if="inasistances.length == 0 ">
+                    <p>Ninguna</p>
+                </div>
+                <div ng-if="inasistances.length > 0 ">
+                    <p ng-repeat="inasistance in inasistances">
+                        {{inasistance.descripcion}}
+                    </p>
+                </div>
             </div>
         </div>
     </ion-content>
