@@ -1,0 +1,78 @@
+﻿<ion-view title="Materia" hide-back-button="true">
+    <ion-content class="has-header">
+        <div class="card">
+            <div class="item item-text-wrap">
+                <h2>Materia</h2>
+                <p>{{subject.materia}}</p>
+            </div>
+        </div>
+        <div class="card">
+            <div class="item item-text-wrap">
+                <h2>Profesores</h2>
+                <a ng-repeat="teacher in teachers">
+                    <p>{{teacher.profesor_nombre }} {{teacher.profesor_apellido }}</p>
+                </a>
+            </div>
+        </div>
+        <div class="card">
+            <div class="item item-text-wrap">
+                <h2>Promedio General</h2>
+                <p>
+                    {{prom }}
+                </p>
+            </div>
+        </div>
+
+        <div class="card">
+            <a href="{{url}}/calendar/{{subject.id}}">
+                <div class="item item-text-wrap">
+                    <h2>Ver Calendario</h2>
+                </div>
+            </a>
+        </div>
+
+        <div class="card">
+            <div class="item item-text-wrap">
+                <h2>Curricula </h2>
+                <p>{{subject.curricula}}</p>
+            </div>
+        </div>
+        <div class="card">
+            <div class="item item-text-wrap">
+                <h2>Material</h2>
+                <a ng-repeat="content in contents" href="{{content.descarga_url}}">
+                    {{content.descripcion }}
+                </a>
+            </div>
+        </div>
+
+        <label class="item item-input">
+            <i class="icon ion-search placeholder-icon"></i>
+            <input type="search" ng-model="searchText" placeholder="Buscar notas por Nombre">
+        </label>
+        <ion-list>
+            <div class="item item-divider">
+                Notas
+            </div>
+            <div style="background-color:white;">
+                <div class="row">
+                    <div style="border:1px solid #D6D6D6" class="col"><b>Fecha</b></div>
+                    <div style="border:1px solid #D6D6D6" class="col"><b>Nombre</b></div>
+                    <div style="border:1px solid #D6D6D6" class="col"><b>Nota</b></div>
+                </div>
+                <div class="row" ng-repeat="evaluation in evaluations | filter:searchText">
+                    <div style="border:1px solid #D6D6D6" class="col">
+                        {{evaluation.fecha}}
+                    </div>
+                    <div style="border:1px solid #D6D6D6" class="col">
+                        {{evaluation.alumno}}
+                    </div>
+                    <div style="border:1px solid #D6D6D6" class="col">
+                        {{evaluation.nota}}
+                    </div>
+                </div>
+            </div>
+        </ion-list>
+
+    </ion-content>
+</ion-view>

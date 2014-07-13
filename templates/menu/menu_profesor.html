@@ -1,0 +1,28 @@
+﻿<ion-side-menus>
+    <ion-pane ion-side-menu-content>
+        <ion-nav-bar class="bar-stable nav-title-slide-ios7">
+            <ion-nav-back-button class="button-clear"><i class="icon ion-chevron-left"></i> Atrás</ion-nav-back-button>
+        </ion-nav-bar>
+        <ion-nav-view name="menuContent" animation="slide-left-right">
+        </ion-nav-view>
+    </ion-pane>
+    <ion-header-bar align-title="left" class="bar-positive header-image">
+        <img class="img-center img-header" src="img/header-portada.jpg" alt="Alternate Text" />
+        <img class="img-center img-logo" ng-src="{{localStorage.logo?localStorage.logo_url:'img/logo.png'}}" alt="Logo del Colegio" />
+    </ion-header-bar>
+    <ion-header-bar align-title="center" class="bar-subheader subheader">
+        <img class="img-center avatar" ng-src="{{localStorage.img?localStorage.img_url:'img/profile.png'}}" alt="Foto de Perfil" />
+        <button menu-toggle="left" class="button button-icon icon ion-navicon"></button>
+        <a href="#/login" class="button button-icon icon ion-log-out"></a>
+    </ion-header-bar>
+    <ion-side-menu side="left">
+        <ion-content>
+            <ion-list>
+                <ion-item nav-clear class="item-icon-left" menu-close href="#/profesor/cursos">
+                    <i class="icon ion-ios7-people"></i>
+                    Cursos
+                </ion-item>
+            </ion-list>
+        </ion-content>
+    </ion-side-menu>
+</ion-side-menus>

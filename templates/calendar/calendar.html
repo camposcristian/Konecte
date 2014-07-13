@@ -1,0 +1,16 @@
+﻿<ion-view title="Cursos" hide-back-button="true">
+    <ion-content class="has-header">
+        <div style="background-color:white;">
+            <div class="row">
+                <div style="border:1px solid #D6D6D6" class="col"><b>Fecha</b></div>
+                <div style="border:1px solid #D6D6D6" class="col"><b>Hora</b></div>
+                <div style="border:1px solid #D6D6D6" class="col"><b>Evaluación</b></div>
+            </div>
+            <div class="row" ng-repeat="evaluation in evaluations" >
+                <div style="border:1px solid #D6D6D6" class=" col">{{evaluation.fecha}}</div>
+                <div style="border:1px solid #D6D6D6" class="col">{{evaluation.hora}}</div>
+                <div style="border:1px solid #D6D6D6" class="col">{{evaluation.evaluacion}}</div>
+            </div>
+        </div>
+    </ion-content>
+</ion-view>

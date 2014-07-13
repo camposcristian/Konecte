@@ -1,0 +1,17 @@
+﻿<ion-view title="Cursos" hide-back-button="true">
+    <ion-content class="has-header">
+        <label class="item item-input">
+            <i class="icon ion-search placeholder-icon"></i>
+            <input type="search" ng-model="searchText" placeholder="Buscar cursos por Nombre, Profesor">
+        </label>
+        <ion-list>
+            <div class="item item-divider">
+                Lista de Cursos
+            </div>
+            <div class="border"></div>
+            <ion-item class="item-back" ng-repeat="course in courses | filter:searchText" type="item-text-wrap" href="{{url}}{{course.id}}">
+                {{course.curso}}
+            </ion-item>
+        </ion-list>
+    </ion-content>
+</ion-view>

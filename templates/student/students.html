@@ -1,0 +1,16 @@
+<ion-view title="Alumnos" hide-back-button="true">
+    <ion-content class="has-header">
+        <ion-list>
+            <label class="item item-input">
+                <i class="icon ion-search placeholder-icon"></i>
+                <input type="search" ng-model="searchSubjects" placeholder="Buscar Alumnos por Cedula, Nombre, Apellido">
+            </label>
+            <div class="item item-divider">
+                Alumnos
+            </div>
+            <ion-item ng-repeat="student in students | filter:searchSubjects" type="item-text-wrap" href="{{url}}{{student.id}}">
+                {{student.nombre}} {{student.apellido}}
+            </ion-item>
+        </ion-list>
+    </ion-content>
+</ion-view>

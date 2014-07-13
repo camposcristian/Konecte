@@ -1,0 +1,43 @@
+<ion-view title="Cursos" hide-back-button="false">
+
+    <ion-content class="has-header">
+        <div class="card">
+            <div class="item item-text-wrap">
+                <h2>Nombre Completo</h2>
+                <p>{{student.nombre}} {{student.apellido}}</p>
+            </div>
+        </div>
+        <div class="card">
+            <div class="item item-text-wrap">
+                <h2>Indisciplinas y Observaciones</h2>
+                <p ng-repeat="inasistance in inasistances">
+                    {{inasistance.fecha}} - {{inasistance.descripcion}}
+                </p>
+            </div>
+        </div>
+        <label class="item item-input">
+            <i class="icon ion-search placeholder-icon"></i>
+            <input type="search" ng-model="searchText" placeholder="Buscar materias por Nombre">
+        </label>
+        <ion-list>
+            <div class="item item-divider">
+                Materias
+            </div>
+            <ion-item ng-repeat="subject in subjects | filter:searchText" type="item-text-wrap" href="#/padre/materia/{{subject.id}}">
+                {{subject.materia}}
+            </ion-item>
+        </ion-list>
+        <label class="item item-input">
+            <i class="icon ion-search placeholder-icon"></i>
+            <input type="search" ng-model="searchText" placeholder="Buscar materias pendientes por Nombre">
+        </label>
+        <ion-list>
+            <div class="item item-divider">
+                Materias Pendientes
+            </div>
+            <ion-item ng-repeat="subjectPend in subjectsPend | filter:searchText" type="item-text-wrap" href="#/padre/materia/{{subjectPend.id}}">
+                {{subjectPend.materia}}
+            </ion-item>
+        </ion-list>
+    </ion-content>
+</ion-view>

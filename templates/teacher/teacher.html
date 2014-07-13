@@ -1,0 +1,28 @@
+<ion-view title="Profesor" hide-back-button="true">
+    <ion-content class="has-header">
+        <div class="card">
+            <div class="item item-text-wrap">
+                <h2>Nombre Completo</h2>
+                <p>{{teacher.nombre}} {{teacher.apellido}}</p>
+            </div>
+        </div>
+        <div class="card">
+            <div class="item item-text-wrap">
+                <h2>Tel</h2>
+                <a href="tel:{{teacher.telefono_movil}}"> Llamar</a>
+            </div>
+        </div>
+        <div class="card">
+            <div class="item item-text-wrap">
+                <h2>Domicilio</h2>
+                <p>{{teacher.domicilio}}</p>
+            </div>
+        </div>
+        <div class="card">
+            <div class="item item-text-wrap">
+                <h2>Cargo</h2>
+                <p>Profesor</p>
+            </div>
+        </div>
+    </ion-content>
+</ion-view>
