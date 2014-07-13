@@ -20,7 +20,7 @@ angular.module('konecte.controllers', [])
             localStorage.img = result.perfil.imagen;
             localStorage.img_url = result.perfil.imagen_url;
             var user = result.usuario.perfil_id
-            $rootScope.user = user;
+            $rootScope.userId = user;
             var tipo = result.usuario.tipo_usuario;
             localStorage.user = user;
 
