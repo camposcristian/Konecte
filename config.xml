@@ -12,8 +12,8 @@
   </author>
   <content src="index.html" />
   <preference name="fullscreen" value="true" />
-  <preference name="webviewbounce" value="false" />
-  <preference name="UIWebViewBounce" value="false" />
+  <preference name="webviewbounce" value="true" />
+  <preference name="UIWebViewBounce" value="true" />
   <preference name="DisallowOverscroll" value="true" />
   <preference name="BackupWebStorage" value="none" />
   <icon src="icon.png" />
