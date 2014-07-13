@@ -6,7 +6,7 @@
 // 'starter.controllers' is found in controllers.js
 angular.module('konecte', ['ionic', 'konecte.controllers', 'konecte.services'])
 
-.run(function ($ionicPlatform, $rootScope, $state, AuthService) {
+.run(function ($ionicPlatform, $rootScope, $state, AuthService, $ionicLoading) {
     $ionicPlatform.ready(function () {
         if (window.StatusBar) {
             // org.apache.cordova.statusbar required
@@ -19,9 +19,11 @@ angular.module('konecte', ['ionic', 'konecte.controllers', 'konecte.services'])
             event.preventDefault();
         }
     });
+    $rootScope.localStorage = localStorage;
 })
 
 .config(function ($stateProvider, $urlRouterProvider, $httpProvider) {
+    $httpProvider.defaults.headers.post["Content-Type"] = "application/x-www-form-urlencoded";
 
     $httpProvider.defaults.useXDomain = true;
     delete $httpProvider.defaults.headers.common['X-Requested-With'];
@@ -47,7 +49,7 @@ angular.module('konecte', ['ionic', 'konecte.controllers', 'konecte.services'])
       .state('director', {
           url: "/director",
           abstract: true,
-          templateUrl: "templates/director/menu.html",
+          templateUrl: "templates/menu/menu_director.html",
           controller: 'AppCtrl'
       })
 
@@ -56,7 +58,7 @@ angular.module('konecte', ['ionic', 'konecte.controllers', 'konecte.services'])
           authenticate: true,
           views: {
               'menuContent': {
-                  templateUrl: 'templates/director/students.html',
+                  templateUrl: 'templates/student/students.html',
                   controller: 'StudentsCtrl'
               }
           }
@@ -67,7 +69,7 @@ angular.module('konecte', ['ionic', 'konecte.controllers', 'konecte.services'])
           authenticate: true,
           views: {
               'menuContent': {
-                  templateUrl: 'templates/director/student.html',
+                  templateUrl: 'templates/student/student.html',
                   controller: 'StudentDetailCtrl'
               }
           }
@@ -78,27 +80,50 @@ angular.module('konecte', ['ionic', 'konecte.controllers', 'konecte.services'])
           authenticate: true,
           views: {
               'menuContent': {
-                  templateUrl: 'templates/director/workers.html',
+                  templateUrl: 'templates/worker/workers.html',
                   controller: 'WorkersCtrl'
               }
           }
       })
+
+    .state('director.worker-detail', {
+        url: '/personal/:workerId',
+        authenticate: true,
+        views: {
+            'menuContent': {
+                templateUrl: 'templates/worker/worker.html',
+                controller: 'WorkerDetailCtrl'
+            }
+        }
+    })
+
         .state('director.teachers', {
-          url: '/profesores',
-          authenticate: true,
-          views: {
-              'menuContent': {
-                  templateUrl: 'templates/director/teachers.html',
-                  controller: 'TeachersCtrl'
-              }
-          }
-      })
+            url: '/profesores',
+            authenticate: true,
+            views: {
+                'menuContent': {
+                    templateUrl: 'templates/teacher/teachers.html',
+                    controller: 'TeachersCtrl'
+                }
+            }
+        })
+
+        .state('director.teacher-detail', {
+            url: '/profesor/:teacherId',
+            authenticate: true,
+            views: {
+                'menuContent': {
+                    templateUrl: 'templates/teacher/teacher.html',
+                    controller: 'TeacherDetailCtrl'
+                }
+            }
+        })
       .state('director.courses', {
           url: '/cursos',
           authenticate: true,
           views: {
               'menuContent': {
-                  templateUrl: 'templates/director/courses.html',
+                  templateUrl: 'templates/course/courses.html',
                   controller: 'CoursesCtrl'
               }
           }
@@ -109,21 +134,8 @@ angular.module('konecte', ['ionic', 'konecte.controllers', 'konecte.services'])
           authenticate: true,
           views: {
               'menuContent': {
-                  templateUrl: 'templates/director/course.html',
+                  templateUrl: 'templates/course/course.html',
                   controller: 'CourseDetailCtrl'
-              }
-          }
-      })
-
-
-
-      .state('director.student-detail1', {
-          url: '/alumno1/:studentId',
-          authenticate: true,
-          views: {
-              'menuContent': {
-                  templateUrl: 'templates/director/student.html',
-                  controller: 'StudentDetailCtrl'
               }
           }
       })
@@ -133,39 +145,30 @@ angular.module('konecte', ['ionic', 'konecte.controllers', 'konecte.services'])
           authenticate: true,
           views: {
               'menuContent': {
-                  templateUrl: 'templates/director/subject.html',
-                  controller: 'SubjectDetailCtrl'
+                  templateUrl: 'templates/subject/subject.html',
+                  controller: 'SubjectDetail'
+              }
+          }
+      })
+      .state('director.calendar', {
+          url: '/calendar/:subjectId',
+          authenticate: true,
+          views: {
+              'menuContent': {
+                  templateUrl: 'templates/calendar/calendar.html',
+                  controller: 'CalendarCtrl'
               }
           }
       })
 
-      .state('director.worker-detail', {
-          url: '/personal/:workerId',
-          authenticate: true,
-          views: {
-              'menuContent': {
-                  templateUrl: 'templates/director/worker.html',
-                  controller: 'WorkerDetailCtrl'
-              }
-          }
-      })
-        .state('director.teacher-detail', {
-            url: '/profesor/:teacherId',
-            authenticate: true,
-            views: {
-                'menuContent': {
-                    templateUrl: 'templates/director/teacher.html',
-                    controller: 'TeacherDetailCtrl'
-                }
-            }
-        })
+
 //#endregion
 
     //#region Profesor
       .state('profesor', {
           url: "/profesor",
           abstract: true,
-          templateUrl: "templates/profesor/menu.html",
+          templateUrl: "templates/menu/menu_profesor.html",
       })
 
       .state('profesor.students', {
@@ -173,8 +176,8 @@ angular.module('konecte', ['ionic', 'konecte.controllers', 'konecte.services'])
           authenticate: true,
           views: {
               'menuContent': {
-                  templateUrl: 'templates/profesor/students.html',
-                  controller: 'StudentsCtrl'
+                  templateUrl: 'templates/student/students.html',
+                  controller: 'StudentsPerTeacherCtrl'
               }
           }
       })
@@ -184,30 +187,19 @@ angular.module('konecte', ['ionic', 'konecte.controllers', 'konecte.services'])
           authenticate: true,
           views: {
               'menuContent': {
-                  templateUrl: 'templates/profesor/subjects.html',
+                  templateUrl: 'templates/subject/subjects.html',
                   controller: 'SubjectsCtrl'
               }
           }
       })
-
-    .state('profesor.subjectspend', {
-        url: '/materiaspend',
-        authenticate: true,
-        views: {
-            'menuContent': {
-                templateUrl: 'templates/profesor/subjectspend.html',
-                controller: 'SubjectsPendCtrl'
-            }
-        }
-    })
 
     .state('profesor.courses', {
         url: '/cursos',
         authenticate: true,
         views: {
             'menuContent': {
-                templateUrl: 'templates/profesor/courses.html',
-                controller: 'CoursesCtrl'
+                templateUrl: 'templates/course/courses.html',
+                controller: 'CoursesPerTeacherCtrl'
             }
         }
     })
@@ -217,7 +209,7 @@ angular.module('konecte', ['ionic', 'konecte.controllers', 'konecte.services'])
         authenticate: true,
         views: {
             'menuContent': {
-                templateUrl: 'templates/profesor/course.html',
+                templateUrl: 'templates/course/course.html',
                 controller: 'CourseDetailCtrl'
             }
         }
@@ -227,7 +219,7 @@ angular.module('konecte', ['ionic', 'konecte.controllers', 'konecte.services'])
         authenticate: true,
         views: {
             'menuContent': {
-                templateUrl: 'templates/profesor/student.html',
+                templateUrl: 'templates/student/student.html',
                 controller: 'StudentDetailCtrl'
             }
         }
@@ -238,8 +230,19 @@ angular.module('konecte', ['ionic', 'konecte.controllers', 'konecte.services'])
           authenticate: true,
           views: {
               'menuContent': {
-                  templateUrl: 'templates/profesor/subject.html',
-                  controller: 'SubjectDetailCtrl'
+                  templateUrl: 'templates/subject/subject_teacher.html',
+                  controller: 'SubjectDetailPerTeacher'
+              }
+          }
+      })
+
+      .state('profesor.calendar', {
+          url: '/calendar/:subjectId',
+          authenticate: true,
+          views: {
+              'menuContent': {
+                  templateUrl: 'templates/calendar/calendar.html',
+                  controller: 'CalendarCtrl'
               }
           }
       })
@@ -249,55 +252,73 @@ angular.module('konecte', ['ionic', 'konecte.controllers', 'konecte.services'])
     .state('alumno', {
         url: "/alumno",
         abstract: true,
-        templateUrl: "templates/alumno/menu.html",
+        templateUrl: "templates/menu/menu_alumno.html",
     })
-
-    .state('alumno.subjects', {
-        url: '/materias',
+    .state('alumno.student-detail', {
+        url: '/alumno/:studentId',
         authenticate: true,
         views: {
             'menuContent': {
-                templateUrl: 'templates/alumno/subjects.html',
-                controller: 'SubjectsCtrl'
+                templateUrl: 'templates/student/student.html',
+                controller: 'StudentDetailCtrl'
             }
         }
     })
-
-    .state('alumno.subjectspend', {
-        url: '/materiaspend',
+    .state('alumno.subjects', {
+        url: '/materias/:studentId',
         authenticate: true,
         views: {
             'menuContent': {
-                templateUrl: 'templates/alumno/subjectspend.html',
+                templateUrl: 'templates/subject/subjects.html',
+                controller: 'SubjectsPerStudentCtrl'
+            }
+        }
+    })
+    .state('alumno.subjectspend', {
+        url: '/materiaspend/:studentId',
+        authenticate: true,
+        views: {
+            'menuContent': {
+                templateUrl: 'templates/subject/subjectspend.html',
                 controller: 'SubjectsPendCtrl'
             }
         }
     })
+
     .state('alumno.subject-detail', {
         url: '/materia/:subjectId',
         authenticate: true,
         views: {
             'menuContent': {
-                templateUrl: 'templates/alumno/subject.html',
+                templateUrl: 'templates/subject/subject.html',
                 controller: 'SubjectDetailCtrl'
             }
         }
     })
+      .state('alumno.calendar', {
+          url: '/calendar/:subjectId',
+          authenticate: true,
+          views: {
+              'menuContent': {
+                  templateUrl: 'templates/calendar/calendar.html',
+                  controller: 'CalendarCtrl'
+              }
+          }
+      })
 //#endregion
 
     //#region Padres
         .state('padre', {
             url: "/padre",
             abstract: true,
-            templateUrl: "templates/padre/menu.html",
+            templateUrl: "templates/menu/menu_padre.html",
         })
-
     .state('padre.subjects', {
         url: '/materias',
         authenticate: true,
         views: {
             'menuContent': {
-                templateUrl: 'templates/padre/subjects.html',
+                templateUrl: 'templates/subject/subjects.html',
                 controller: 'SubjectsCtrl'
             }
         }
@@ -308,7 +329,7 @@ angular.module('konecte', ['ionic', 'konecte.controllers', 'konecte.services'])
         authenticate: true,
         views: {
             'menuContent': {
-                templateUrl: 'templates/padre/students.html',
+                templateUrl: 'templates/student/students.html',
                 controller: 'ChildsCtrl'
             }
         }
@@ -318,8 +339,8 @@ angular.module('konecte', ['ionic', 'konecte.controllers', 'konecte.services'])
         authenticate: true,
         views: {
             'menuContent': {
-                templateUrl: 'templates/padre/child.html',
-                controller: 'ChildDetailCtrl'
+                templateUrl: 'templates/student/student.html',
+                controller: 'StudentDetailCtrl'
             }
         }
     })
@@ -329,7 +350,7 @@ angular.module('konecte', ['ionic', 'konecte.controllers', 'konecte.services'])
         authenticate: true,
         views: {
             'menuContent': {
-                templateUrl: 'templates/padre/subjectspend.html',
+                templateUrl: 'templates/subject/subjectspend.html',
                 controller: 'SubjectsPendCtrl'
             }
         }
@@ -339,8 +360,19 @@ angular.module('konecte', ['ionic', 'konecte.controllers', 'konecte.services'])
         authenticate: true,
         views: {
             'menuContent': {
-                templateUrl: 'templates/padre/subject.html',
+                templateUrl: 'templates/subject/subject.html',
                 controller: 'SubjectDetailCtrl'
+            }
+        }
+    })
+
+    .state('padre.calendar', {
+        url: '/calendar/:subjectId',
+        authenticate: true,
+        views: {
+            'menuContent': {
+                templateUrl: 'templates/calendar/calendar.html',
+                controller: 'CalendarCtrl'
             }
         }
     })

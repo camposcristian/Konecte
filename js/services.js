@@ -7,8 +7,8 @@ angular.module('konecte.services', [])
 .factory('Courses', function (BaseUrl, $http) {
 
     return {
-        all: function () {
-            return $http.post(BaseUrl + '/cursos/get')
+        all: function (teacherId) {
+            return $http.post(BaseUrl + '/cursos/get', teacherId)
         },
         get: function (id) {
             return $http.post(BaseUrl + '/cursos/get/' + id)
@@ -23,7 +23,53 @@ angular.module('konecte.services', [])
             return $http.post(BaseUrl + '/profesores/get')
         },
         get: function (id) {
-            return $http.post(BaseUrl + '/profesores/get/'+id)
+            return $http.post(BaseUrl + '/profesores/get/' + id)
+        }
+    }
+})
+
+.factory('TeachersPerCourse', function (BaseUrl, $http) {
+
+    return {
+        all: function (subjectId) {
+            return $http.post(BaseUrl + '/cursos_materias_profesores/get', subjectId)
+        }
+    }
+})
+
+
+.factory('Evaluations', function (BaseUrl, $http) {
+
+    return {
+        all: function (subjectId) {
+            return $http.post(BaseUrl + '/evaluaciones/get', subjectId)
+        }
+    }
+})
+
+.factory('EvaluationResults', function (BaseUrl, $http) {
+
+    return {
+        all: function (studentId) {
+            return $http.post(BaseUrl + '/notas/get', studentId)
+        }
+    }
+})
+
+.factory('Materiales', function (BaseUrl, $http) {
+
+    return {
+        all: function (subjectId) {
+            return $http.post(BaseUrl + '/materias_materiales/get', subjectId)
+        }
+    }
+})
+
+.factory('Institutions', function (BaseUrl, $http) {
+
+    return {
+        getImg: function (schoolId) {
+            return $http.post(BaseUrl + '/colegios/get/' + schoolId);
         }
     }
 })
@@ -41,7 +87,7 @@ angular.module('konecte.services', [])
             }
         },
         get: function (id) {
-            return $http.post(BaseUrl + '/alumnos/get/'+id)
+            return $http.post(BaseUrl + '/alumnos/get/' + id)
         }
     }
 })
@@ -51,7 +97,7 @@ angular.module('konecte.services', [])
     return {
         all: function (id) {
             if (id) {
-                return $http.post(BaseUrl + '/inasistencias/get', { alumno_id: id })
+                return $http.post(BaseUrl + '/inasistencias/get', id)
             }
             else {
                 return $http.post(BaseUrl + '/inasistencias/get')
@@ -60,25 +106,6 @@ angular.module('konecte.services', [])
         },
         get: function (id) {
             return $http.post(BaseUrl + '/inasistencias/get/' + id)
-        }
-    }
-})
-
-    //No se usa, falta algun metodo que me devuelva una lista de profesores con su nombre diretaamente
-.factory('SubjectTeachers', function (BaseUrl, $http) {
-
-    return {
-        all: function (id) {
-            if (id) {
-                return $http.post(BaseUrl + '/cursos_materias_profesores/get', { materia_id: id })
-            }
-            else {
-                return $http.post(BaseUrl + '/cursos_materias_profesores/get')
-
-            }
-        },
-        get: function (id) {
-            return $http.post(BaseUrl + '/cursos_materias_profesores/get/' + id)
         }
     }
 })
@@ -114,10 +141,10 @@ angular.module('konecte.services', [])
             }
         },
         getPend: function (studentId) {
-            return $http.post(BaseUrl + '/alumnos/get/' + studentId + '/materias_pendientes')
+            return $http.post(BaseUrl + '/materias_pendientes/get/', studentId)
         },
         get: function (id) {
-            return $http.post(BaseUrl + '/materias/get/'+id)
+            return $http.post(BaseUrl + '/materias/get/' + id)
         }
     }
 })
@@ -128,11 +155,14 @@ angular.module('konecte.services', [])
     var token = localStorage["token"];
 
     if (guid && token) {
+        $http.defaults.headers.post["Content-Type"] = "application/x-www-form-urlencoded";
+
         $http.defaults.headers.common =
             {
                 "X-KONECTE-APPNAME": "KonecteMobile",
                 "X-KONECTE-GUID": guid,
-                "X-KONECTE-TOKEN": token
+                "X-KONECTE-TOKEN": token,
+                "Content-Type": "application/x-www-form-urlencoded; charset=UTF-8"
             };
     }
     var login = function (user) {
@@ -192,6 +222,7 @@ angular.module('konecte.services', [])
         var deferred = $q.defer();
 
         var header = {
+            "Content-Type": "application/x-www-form-urlencoded; charset=UTF-8",
             "X-KONECTE-APPNAME": "KonecteMobile",
             "X-KONECTE-GUID": "",
             "X-KONECTE-TOKEN": ""
