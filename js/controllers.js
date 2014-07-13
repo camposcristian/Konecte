@@ -77,7 +77,7 @@ angular.module('konecte.controllers', [])
 
 .controller('CourseDetailCtrl', function ($scope, $stateParams, Courses, Subjects, Students, $rootScope) {
     var url = window.location.hash.split("/");
-    $scope.url = url[0] + url[1];
+    $scope.url = url[0] +'/'+ url[1];
     $rootScope.loadingIndicator.show();
 
     Courses.get($stateParams.courseId).success(function (course) {
@@ -96,7 +96,7 @@ angular.module('konecte.controllers', [])
 
 .controller('SubjectDetailCtrl', function ($scope, $stateParams, Subjects, TeachersPerCourse, Materiales, $rootScope) {
     var url = window.location.hash.split("/");
-    $scope.url = url[0] + url[1];
+    $scope.url = url[0] +'/'+ url[1];
     $rootScope.loadingIndicator.show();
     Subjects.get($stateParams.subjectId).success(function (subject) {
         $scope.subject = subject.materia;
@@ -112,7 +112,7 @@ angular.module('konecte.controllers', [])
 
 .controller('SubjectDetailPerTeacher', function ($scope, $stateParams, Subjects, TeachersPerCourse, Materiales, EvaluationResults, $rootScope) {
     var url = window.location.hash.split("/");
-    $scope.url = url[0] + url[1];
+    $scope.url = url[0] +'/'+ url[1];
     $rootScope.loadingIndicator.show();
     Subjects.get($stateParams.subjectId).success(function (subject) {
         $scope.subject = subject.materia;
@@ -142,7 +142,7 @@ angular.module('konecte.controllers', [])
 
 .controller('StudentDetailCtrl', function ($scope, $stateParams, Students, Inasistances, EvaluationResults, Subjects, $rootScope) {
     var url = window.location.hash.split("/");
-    $scope.url = url[0] + url[1];
+    $scope.url = url[0] +'/'+ url[1];
     $rootScope.loadingIndicator.show();
     Students.get($stateParams.studentId).success(function (student) {
         $scope.student = student.alumno;
@@ -152,6 +152,10 @@ angular.module('konecte.controllers', [])
     });
     EvaluationResults.all({ alumno_id: $stateParams.studentId }).success(function (inasistance) {
         $scope.evaluations = inasistance.notas.rows;
+    });
+    Subjects.all({ alumno_id: $stateParams.studentId }).success(function (subjects) {
+        $scope.subjects = subjects.materias.rows;
+        $rootScope.loadingIndicator.hide();
     });
     Subjects.getPend({ alumno_id: $stateParams.studentId }).success(function (subjects) {
         $scope.subjectsPend = subjects.materias_pendientes.rows;

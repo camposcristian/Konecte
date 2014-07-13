@@ -5,10 +5,10 @@
             <input type="search" ng-model="searchText" placeholder="Buscar cursos por Nombre, Profesor">
         </label>
         <ion-list>
+            <div class="border"></div>
             <div class="item item-divider">
                 Lista de Cursos
             </div>
-            <div class="border"></div>
             <ion-item class="item-back" ng-repeat="course in courses | filter:searchText" type="item-text-wrap" href="{{url}}{{course.id}}">
                 {{course.curso}}
             </ion-item>

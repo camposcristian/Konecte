@@ -33,6 +33,7 @@
             <input type="search" ng-model="searchText" placeholder="Buscar notas por Nombre">
         </label>
         <ion-list>
+            <div class="border"></div>
             <div class="item item-divider">
                 Notas
             </div>
@@ -57,6 +58,17 @@
         </ion-list>
 
         <ion-list>
+            <div class="border"></div>
+            <div class="item item-divider">
+                Materias
+            </div>
+            <ion-item ng-repeat="subject in subjects" type="item-text-wrap" href="{{url}}/materia/{{subject.id}}">
+                {{subject.materia}}
+            </ion-item>
+        </ion-list>
+
+        <ion-list>
+            <div class="border"></div>
             <div class="item item-divider">
                 Materias Pendientes
             </div>
@@ -64,5 +76,6 @@
                 {{subject.materia}}
             </ion-item>
         </ion-list>
+
     </ion-content>
 </ion-view>
