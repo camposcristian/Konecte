@@ -24,7 +24,7 @@ angular.module('konecte', ['ionic', 'konecte.controllers', 'konecte.services'])
 
 .config(function ($stateProvider, $urlRouterProvider, $httpProvider) {
     $httpProvider.defaults.headers.post["Content-Type"] = "application/x-www-form-urlencoded";
-
+    $httpProvider.interceptors.push('authHttpResponseInterceptor');
     $httpProvider.defaults.useXDomain = true;
     delete $httpProvider.defaults.headers.common['X-Requested-With'];
 

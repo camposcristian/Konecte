@@ -1,4 +1,28 @@
-angular.module('konecte.services', [])
+angular.module('konecte.services', ['ionic'])
+
+.factory('authHttpResponseInterceptor', ['$q', '$location', '$rootScope', '$injector', function ($q, $location, $rootScope, $injector) {
+    return {
+        response: function (response) {
+            if (response.status === 401) {
+                console.log("Response 401");
+            }
+            return response || $q.when(response);
+        },
+        responseError: function (rejection) {
+            if (rejection.status === 401) {
+                console.log("Response Error 401", rejection);
+                $rootScope.loadingIndicator.hide();
+                $injector.get("$ionicLoading").show({
+                    content: rejection.data.errores[0],
+                    animation: 'fade-in',
+                    showBackdrop: false,
+                    duration: 2000
+                });
+            }
+            return $q.reject(rejection);
+        }
+    }
+}])
 
 .factory('BaseUrl', function () {
     return 'http://api.konecte.ridelnik.com';
