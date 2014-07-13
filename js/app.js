@@ -146,7 +146,7 @@ angular.module('konecte', ['ionic', 'konecte.controllers', 'konecte.services'])
           views: {
               'menuContent': {
                   templateUrl: 'templates/subject/subject.html',
-                  controller: 'SubjectDetail'
+                  controller: 'SubjectDetailCtrl'
               }
           }
       })
@@ -377,12 +377,6 @@ angular.module('konecte', ['ionic', 'konecte.controllers', 'konecte.services'])
         }
     })
     //#endregion
-
-
-
-
-
-    // if none of the above states are matched, use this as the fallback
     $urlRouterProvider.otherwise('/login');
 });
 
