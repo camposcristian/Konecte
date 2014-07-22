@@ -109,11 +109,7 @@ angular.module('konecte.controllers', [])
         $rootScope.loadingIndicator.hide();
     });
     $scope.download = function (url) {
-        if (device.platform === 'Android') {
-            navigator.app.loadUrl(url, { openExternal: true });
-        } else {
-            window.open(url, '_system');
-        }
+        window.open(url, '_system', 'location=no');
     }
 })
 
