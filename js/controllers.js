@@ -108,6 +108,13 @@ angular.module('konecte.controllers', [])
         $scope.contents = content.materia_material.rows;
         $rootScope.loadingIndicator.hide();
     });
+    $scope.download = function (url) {
+        if (device.platform === 'Android') {
+            navigator.app.loadUrl(url, { openExternal: true });
+        } else {
+            window.open(url, '_system');
+        }
+    }
 })
 
 .controller('SubjectDetailPerTeacher', function ($scope, $stateParams, Subjects, TeachersPerCourse, Materiales, EvaluationResults, $rootScope) {
@@ -132,6 +139,13 @@ angular.module('konecte.controllers', [])
         $scope.contents = content.materia_material.rows;
         $rootScope.loadingIndicator.hide();
     });
+    $scope.download = function (url) {
+        if (device.platform === 'Android') {
+            navigator.app.loadUrl(url, { openExternal: true });
+        } else {
+            window.open(url, '_system');
+        }
+    }
 })
 
 .controller('CalendarCtrl', function ($scope, $stateParams, Evaluations) {

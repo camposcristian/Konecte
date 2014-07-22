@@ -7,7 +7,7 @@
   <description>
     Gestión Curricular de entidades educativas
   </description>
-  <author email="hi@ionicframework" href="http://ionicframework.com/">
+  <author email="ccampos@lupersoft.com" href="http://lupersoft.com.ar/">
     Lupersoft
   </author>
   <content src="index.html" />
@@ -17,7 +17,7 @@
   <preference name="DisallowOverscroll" value="true" />
   <preference name="BackupWebStorage" value="none" />
   <icon src="icon.png" />
-
+  <gap:plugin name="org.apache.cordova.inappbrowser" />
   <icon src="ldpi.png" gap:platform="android" gap:qualifier="ldpi" />
   <icon src="mdpi.png" gap:platform="android" gap:qualifier="mdpi" />
   <icon src="hdpi.png" gap:platform="android" gap:qualifier="hdpi" />
