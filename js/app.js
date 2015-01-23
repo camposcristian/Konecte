@@ -13,12 +13,6 @@ angular.module('konecte', ['ionic', 'konecte.controllers', 'konecte.services'])
             StatusBar.styleDefault();
         }
     });
-    $rootScope.$on("$stateChangeStart", function (event, toState, toParams, fromState, fromParams) {
-        if (toState.authenticate && !AuthService.isAuthenticated()) {
-            $state.transitionTo("login");
-            event.preventDefault();
-        }
-    });
     $rootScope.localStorage = localStorage;
 })
 
