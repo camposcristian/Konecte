@@ -25,7 +25,7 @@ angular.module('konecte.services', ['ionic'])
 }])
 
 .factory('BaseUrl', function () {
-    return 'http://api.konecte.ridelnik.com';
+    return 'http://api.konecte.org';
 })
 
 .factory('Courses', function (BaseUrl, $http) {
